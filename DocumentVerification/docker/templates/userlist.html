@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block additional_styles %}
+  <link rel="stylesheet" type="text/css" href="{% static "style2.css" %}">
+{% endblock %}
+{% block content%}
+{% if teacher %}
+<div class="container">
+      <div class="row">
+                <div class="col-12 text-left">
+                    <a href="#menu-toggle" class="btn btn-success btn-lg" id="menu-toggle">Menu</a>
+                </div>
+      </div>
+                <br>
+
+            <div class="jumbotron">
+             <ol class="breadcrumb my-4">
+                  <li class="breadcrumb-item active" 
+                  style="color:#fff;
+                  font-size:30px;
+                  font-family:bold;
+                 margin:auto;">
+              Customer Lists </li>
+                </ol>
+        <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr style="text-align:center;">
+          <th>User Name</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Verification</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for teachers in teacher %}
+          <tr style="text-align:center;">
+            <td class="align-middle">
+              {{ teachers.username }}
+            </td>
+            <td class="align-middle">{{ teachers.first_name}}</td>
+            <td class="align-middle">{{ teachers.last_name}}</td>
+            <td class="align-middle">{{ teachers.email}}</td>
+            {% if teachers.documents.Verification%}
+             <td class="align-middle"><ion-icon name="checkmark" class="iconitemdelete" style="font-size:30px;color:green"></ion-icon></ion-icon></a></td>
+             {% else %}
+            <td class="align-middle"><a href="{% url "docker:docview" teachers.id %}"><ion-icon name="eye" style="font-size:30px;"></ion-icon></ion-icon></a></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+
+<nav aria-label="Page navigation example">
+<ul class="pagination">
+        {% if teacher.has_previous %}
+        
+        <li class="page-item"><a class="page-link" href="?page={{ teacher.previous_page_number }}">&laquo;</a></li>
+        {% endif %}
+        {% for i in teacher.paginator.page_range %}
+      {% if teacher.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    	{% endfor %}
+     
+
+        {% if teacher.has_next %}
+           <li class="page-item"> <a class="page-link" href="?page={{ teacher.next_page_number }}">&raquo;</a></li>
+            {% endif %}
+</ul>
+</nav>
+
+  </div>
+  </div>
+ 
+
+{% else %}
+<h3>No Students</h3>
+{% endif %}
+{% endblock %}

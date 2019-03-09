@@ -1,0 +1,113 @@
+{% load staticfiles %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Document Verification</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/simple-sidebar.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "style1.css" %}">
+    {% block additional_styles %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav" style="font-family:bold;">
+                <li class="sidebar-brand">
+                    {% if request.user.is_authenticated %}
+                    <a href="#">
+                       Welcome {{ user.username }}
+                    </a>
+                    {% else %}
+                    <a href="{% url "docker:login" %}">
+                        Login Here
+                    </a>
+                    {% endif %}
+                </li>
+                <li>
+                    <a href="{% url "docker:home" %}">Home</a>
+                </li>
+                {% if request.user.is_superuser%}
+                <li>
+                    <a href="{% url "docker:userlist" %}">Customers</a>
+                </li>
+                {%else%}
+                {% if request.user.is_authenticated %}
+                {% if request.user.documents %}
+                <li>
+                    <a href="{% url "docker:doclist" %}">Documents</a>
+                </li>
+                {% else %}
+                 <li>
+                    <a href="{% url "docker:newdoc" %}">Upload Documents</a>
+                </li>
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <li>
+                    <a href="{% url "docker:logout" %}">
+                        Logout
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            {% block content %}
+            <div class="container-fluid text-white">
+                <br>
+                <br>
+                <h1 class="display-1 text-center">Document Verification System</h1>
+                <br>
+                <br>
+                  <div class="row">
+                <div class="col-12 text-center">
+                    <a href="#menu-toggle" class="btn btn-success btn-lg" id="menu-toggle">Menu</a>
+                </div>
+                </div>
+                
+            </div>
+            {% endblock %}
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+     <script src="https://unpkg.com/ionicons@4.5.0/dist/ionicons.js"></script>
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>

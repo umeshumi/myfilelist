@@ -1,0 +1,37 @@
+.jumbotron {
+	padding-top: 2rem;
+
+}
+
+.breadcrumb {
+
+	background-color: #34495e;
+	
+}
+
+
+
+.menu-toggle {
+	background-color: #f1c40f;
+}
+
+.menu-toggle:hover {
+	background-color: #cea927;
+}
+
+
+.iconitem {
+	font-size: 20px;
+}
+.iconitem:hover {
+	font-size: 25px;
+}
+
+.iconitemdelete {
+	font-size: 20px;
+	color: red;
+}
+.iconitemdelete:hover {
+	font-size: 25px;
+	color: red;
+}

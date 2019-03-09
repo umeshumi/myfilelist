@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{{ object.title }}<br>
+{{ object.description }}
+
+<img src="{{ object.image.url }}" class="img-thumbnail" style="height:100px; width:200px">
+
+
+{% endblock %}

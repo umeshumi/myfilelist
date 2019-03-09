@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block additional_styles %}
+	<link rel="stylesheet" type="text/css" href="{% static "style2.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+                <div class="col-12 text-left">
+                    <a href="#menu-toggle" class="btn btn-success btn-lg" id="menu-toggle">Menu</a>
+                </div>
+                </div>
+                <br>
+
+	<div class="jumbotron">
+	 <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active" 
+        style="color:#fff;
+        font-size:30px;
+        font-family:bold;
+       margin:auto;">
+    Documents </li>
+      </ol>
+		<form method="POST" enctype="multipart/form-data" class="form">
+			{% csrf_token %}
+			{%  bootstrap_form form %}
+			{% buttons %}
+        		<div class="row">
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-success">Upload</button>
+                </div>
+                </div>
+    		{% endbuttons %}
+		</form>
+	
+	</div>
+</div>
+{% endblock %}

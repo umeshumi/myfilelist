@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block additional_styles %}
+  <link rel="stylesheet" type="text/css" href="{% static "style2.css" %}">
+{% endblock %}
+{% block content%}
+{% if teacher %}
+<div class="container">
+      <div class="row">
+                <div class="col-12 text-left">
+                    <a href="#menu-toggle" class="btn btn-success btn-lg" id="menu-toggle">Menu</a>
+                </div>
+      </div>
+                <br>
+
+            <div class="jumbotron">
+             <ol class="breadcrumb my-4">
+                  <li class="breadcrumb-item active" 
+                  style="color:#fff;
+                  font-size:30px;
+                  font-family:bold;
+                 margin:auto;">
+              Document Lists </li>
+                </ol>
+        <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+          <th>Birth Certificate</th>
+          <th>Degree Certificate</th>
+          <th>Delete</th>
+          <th>Verification</th>
+        </tr>
+      </thead>
+      <tbody>
+
+          <tr>
+            <td class="align-middle"><a href="{{ teacher.Birth_Certificate.url }}"> {{ teacher.Birth_Certificate.name}}</a></td>
+             <td class="align-middle"><a href="{{ teacher.Degree_Certificate.url }}"> {{ teacher.Degree_Certificate.name}}</a></td>
+             <td class="align-middle"><a href="{% url "docker:docdelete" teacher.user.id %}"><ion-icon name="trash" class="iconitemdelete"></ion-icon></ion-icon></a></td>
+             {% if teacher.Verification %}
+             <td class="align-middle"><ion-icon name="checkmark" class="iconitemdelete" style="font-size:30px;color:green"></ion-icon></ion-icon></a></td>
+             {% else %}
+            <td class="align-middle"><ion-icon name="close" style="font-size:30px; color:red;"></ion-icon></ion-icon></a></td>
+            {% endif %}
+
+          </tr>
+
+      </tbody>
+    </table>
+  </div>
+  </div>
+ 
+
+{% else %}
+<h3 style="color:white">No documets</h3>
+{% endif %}
+{% endblock %}
